@@ -21,3 +21,5 @@ coverage/
 
 # System files
 .DS_Store
+
+*.tar.gz
