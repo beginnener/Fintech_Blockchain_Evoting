@@ -1,29 +1,47 @@
 {
   "$schema": "https://github.com/hyperledger-labs/fablo/releases/download/1.2.0/schema.json",
   "global": {
-    "fabricVersion": "2.5.4",
+    "fabricVersion": "2.4.7",
     "tls": true
   },
   "orgs": [
+    {
+      "organization": { "name": "OrdererOrg", "domain": "orderer.example.com" },
+      "orderers": [
+        {
+          "groupName": "orderer", "type": "raft", "instances": 1
+        }
+      ]
+    },
     {
       "organization": { "name": "KPU", "domain": "kpu.id" },
       "peer": { "instances": 1, "db": "CouchDb" }
     },
     {
       "organization": { "name": "Akademik", "domain": "univ.ac.id" },
-      "peer": { "instances": 1, "db": "CouchDb" }
+      "peer": { "instances": 1, "db": "CouchDb"}
     },
     {
-      "organization": { "name": "Orderer", "domain": "orderer.net" },
-      "orderer": { "type": "solo", "instances": 1 }
+      "organization": { "name": "TimIT", "domain": "tim-it.kpu.id" },
+      "peer": { "instances": 1, "db": "CouchDb" }
     }
   ],
   "channels": [
     {
       "name": "pemilu-channel",
       "orgs": [
-        { "name": "KPU", "peers": ["peer0"] },
-        { "name": "Akademik", "peers": ["peer0"] }
+        {
+          "name": "KPU",
+          "peers": [ "peer0" ] 
+        },
+        {
+          "name": "Akademik",
+          "peers": [ "peer0" ]
+        },
+        {
+          "name": "TimIT",
+          "peers": [ "peer0" ]
+        }
       ]
     }
   ],
@@ -33,7 +51,8 @@
       "version": "1.0",
       "lang": "golang",
       "channel": "pemilu-channel",
-      "directory": "./chaincodes/evoting"
+      "directory": "./chaincodes/evoting",
+      "endorsement": "AND('KPU.member', 'Akademik.member')"
     }
   ]
 }
