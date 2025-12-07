@@ -1,1 +1,23 @@
 **/node_modules/
+
+# Hyperledger Fabric & Fablo Artifacts
+fablo-target/
+.fablo/
+vars/
+
+# Wallet (Identitas Lokal)
+wallet/
+*.id
+
+# Node.js dependencies (Untuk backend/frontend)
+node_modules/
+dist/
+build/
+.next/
+coverage/
+
+# Log files
+*.log
+
+# System files
+.DS_Store
